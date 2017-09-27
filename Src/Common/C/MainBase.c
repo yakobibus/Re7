@@ -81,9 +81,9 @@ MainBase& MainBase::operator = (const MainBase& m) {
 }
 
 
-inline int MainBase::getArgc(void) { return _argc; }
+int MainBase::getArgc(void) { return _argc; }
 
-inline std::string * MainBase::getArgv(void) { return _argv; }
+std::string * MainBase::getArgv(void) { return _argv; }
 
-inline std::string MainBase::getArgv(int rang) { assert(rang >= 0 && rang < _argc); return _argv[rang]; }
+std::string MainBase::getArgv(int rang) { assert(rang >= 0 && rang < _argc); return _argv[rang]; }
 }

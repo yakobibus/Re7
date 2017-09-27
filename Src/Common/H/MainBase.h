@@ -15,11 +15,12 @@ namespace main_base
 		virtual ~MainBase();
 		MainBase(const MainBase& m);
 		MainBase& operator = (const MainBase& m);
+
+		virtual void affiche(void) = 0;
+		int getArgc(void);
+		std::string getArgv(int rang);
+		std::string* getArgv(void);
 	protected:
-		virtual void Le7(void) = 0;
-		inline int getArgc(void);
-		inline std::string getArgv(int rang);
-		inline std::string* getArgv(void);
 	private:
 		int _argc;
 		std::string* _argv;
