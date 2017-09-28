@@ -22,6 +22,7 @@ namespace re_7
 		virtual void affiche(void) { for (int i = 1; i < getArgc(); ++i) { std::cout << i << ". " << getArgv(i).c_str() << std::endl; } }
 		inline void Re7(void);
 	private:
+		re_7_partie::Partie _partie;
 	};
 }
 

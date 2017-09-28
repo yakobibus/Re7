@@ -7,14 +7,14 @@ namespace re_7
 {
 	inline void MainRe7::Re7(void) 
 	{
-		re_7_partie::Partie partie;
+		re_7_partie::Partie partie (getArgc(), getArgv());
 
-		partie._Joueurs[0].lanceDe();
-		partie._Joueurs[1].lanceDe();
+		// .ici. todo : partie._Joueurs[0].lanceDe();
+		// .ici. todo : partie._Joueurs[1].lanceDe();
 		
-		partie.classement();
+		// .ici. todo : partie.classement();
 
-		affiche();
+		partie.affiche();
 	}
 }
 
