@@ -19,7 +19,7 @@ namespace re_7
 		MainRe7(const MainRe7& m) = default;
 		MainRe7& operator = (const MainRe7& m) = default ;
 
-		virtual void affiche(void) { for (int i = 1; i < getArgc(); ++i) { std::cout << i << ". " << getArgv(i).c_str() << std::endl; } }
+		virtual void affiche(void) { /*for (int i = 1; i < getArgc(); ++i) { std::cout << i << ". " << getArgv(i).c_str() << std::endl; }*/ }
 		inline void Re7(void);
 	private:
 		re_7_partie::Partie _partie;

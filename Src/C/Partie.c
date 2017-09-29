@@ -65,6 +65,14 @@ namespace re_7_partie
 			}
 		}
 	}
+
+	void Partie::affiche(void)
+	{
+		for (unsigned int i = 0; i < _nbJoueurs; ++i)
+		{
+			_Joueurs[i].affiche();
+		}
+	}
 }
 
 namespace re_7_joueur

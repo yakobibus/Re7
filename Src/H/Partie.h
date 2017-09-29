@@ -41,13 +41,7 @@ namespace re_7_partie
 		void PartieCopyData(const re_7_partie::Partie & p);
 
 		void classement(void) { std::cout << " ... Todo : re_7_partie::Partie.classement () ..." << std::endl; }
-		void affiche(void)
-		{
-			for (unsigned int i = 0; i < _nbJoueurs; ++i)
-			{
-				_Joueurs [i].affiche();
-			}
-		}
+		void affiche(void);
 	private :
 		unsigned int _nbJoueurs;
 		re_7_joueur::Joueur* _Joueurs;
