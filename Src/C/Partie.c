@@ -12,12 +12,16 @@ namespace re_7_partie
 		_Joueurs[1].setPseudo("Joueur 2");
 	}
 
-	Partie::Partie(unsigned int nbJoueurs) : _nbJoueurs(nbJoueurs)
+	Partie::Partie(unsigned int nbJoueurs) 
+		: _nbJoueurs(nbJoueurs)
+		, _terminee(false)
 	{
 		initDefault();
 	}
 
-	Partie::Partie(unsigned int nbJoueurs, std::string * listePseudos) : _nbJoueurs(nbJoueurs)
+	Partie::Partie(unsigned int nbJoueurs, std::string * listePseudos) 
+		: _nbJoueurs(nbJoueurs)
+		, _terminee(false)
 	{
 		switch (_nbJoueurs)
 		{
@@ -63,6 +67,8 @@ namespace re_7_partie
 			{
 				_Joueurs[i] = p._Joueurs[i];
 			}
+
+			_terminee = p._terminee;
 		}
 	}
 
@@ -71,6 +77,19 @@ namespace re_7_partie
 		for (unsigned int i = 0; i < _nbJoueurs; ++i)
 		{
 			_Joueurs[i].affiche();
+		}
+		std::cout << "Partie " << (_terminee == true ? "terminEe" : "en cours ...") << std::endl;
+	}
+
+	void Partie::derouler(void) 
+	{
+		while (_terminee == true)
+		{
+			for (unsigned int i = 0; i < _nbJoueurs; ++i)
+			{
+
+			}
+			// ..ici.. : todo
 		}
 	}
 }

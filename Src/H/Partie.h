@@ -41,12 +41,15 @@ namespace re_7_partie
 		Partie(const Partie& p);
 		Partie& operator = (const Partie& p);
 
+		void derouler(void);
 		void classement(void) { std::cout << " ... Todo : re_7_partie::Partie.classement () ..." << std::endl; }
 		void affiche(void);
 	private :
 		unsigned int _nbJoueurs;
 		re_7_joueur::Joueur* _Joueurs;
 		re_7_le_de::LeDe _leDe;
+
+		bool _terminee;
 	};
 }
 # endif // PARTIE_H
