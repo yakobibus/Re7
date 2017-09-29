@@ -77,7 +77,10 @@ namespace re_7_partie
 
 namespace re_7_joueur
 {
-	Joueur::Joueur() : _pseudo(""), _estHorsJeux(false)
+	Joueur::Joueur() 
+		: _pseudo("")
+		, _estHorsJeux(false)
+		, _nbLances(0)
 	{
 		for (int i = 0; i < 7; ++i)
 		{
