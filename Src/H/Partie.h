@@ -4,6 +4,7 @@
 # define PARTIE_H  (1)
 
 # include <iostream>
+# include "LeDe.h"
 
 namespace re_7_joueur
 {
@@ -21,6 +22,7 @@ namespace re_7_joueur
 		std::string _pseudo;
 		bool _estHorsJeux;
 		int _suiteDeLances[7];
+		unsigned int _nbLances;  // ... de lancés du dé
 	};
 }
 
@@ -30,6 +32,7 @@ namespace re_7_partie
 	{
 	public :
 		void initDefault(void);
+		void PartieCopyData(const re_7_partie::Partie & p);
 
 		Partie(unsigned int nbJoueurs = 2);
 
@@ -38,13 +41,12 @@ namespace re_7_partie
 		Partie(const Partie& p);
 		Partie& operator = (const Partie& p);
 
-		void PartieCopyData(const re_7_partie::Partie & p);
-
 		void classement(void) { std::cout << " ... Todo : re_7_partie::Partie.classement () ..." << std::endl; }
 		void affiche(void);
 	private :
 		unsigned int _nbJoueurs;
 		re_7_joueur::Joueur* _Joueurs;
+		re_7_le_de::LeDe _leDe;
 	};
 }
 # endif // PARTIE_H
