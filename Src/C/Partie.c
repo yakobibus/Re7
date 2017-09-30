@@ -85,7 +85,7 @@ namespace re_7_partie
 	{
 		while (_terminee == false)
 		{
-			for (unsigned int i = 0; i < _nbJoueurs; ++i)
+			for (unsigned int i = 0; ! partieTerminee() && i < _nbJoueurs; ++i)
 			{
 
 			}
