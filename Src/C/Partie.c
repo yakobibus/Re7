@@ -85,7 +85,7 @@ namespace re_7_partie
 	{
 		while (_terminee == false)
 		{
-			for (unsigned int i = 0; i < _nbJoueurs; ++i)
+			for (unsigned int i = 0; ! partieTerminee() && i < _nbJoueurs; ++i)
 			{
 
 			}
@@ -100,6 +100,7 @@ namespace re_7_joueur
 		: _pseudo("")
 		, _estHorsJeux(false)
 		, _nbLances(0)
+		, _cumulDesLances(0)
 	{
 		for (int i = 0; i < 7; ++i)
 		{

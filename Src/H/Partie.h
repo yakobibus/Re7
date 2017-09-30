@@ -16,14 +16,17 @@ namespace re_7_joueur
 		Joueur(const Joueur& j) = default;
 		Joueur& operator = (const Joueur& j) = default;
 		
-		void setPseudo(std::string pseudo);
 		void affiche(void);
+		bool estHorsJeux(void) { return _estHorsJeux; }
+		unsigned int getCumulDesLances(void) { return _cumulDesLances; }
+		unsigned int getNbLances(void) { return _nbLances; }
+		void setPseudo(std::string pseudo);
 	private :
 		std::string _pseudo;
 		bool _estHorsJeux;
 		int _suiteDeLances[7];
 		unsigned int _nbLances;  // ... de lancés du dé
-		unsigned int _cumulDesLances; // .. ici .. : ajouter au constructeur
+		unsigned int _cumulDesLances; 
 	};
 }
 
@@ -33,7 +36,7 @@ namespace re_7_partie
 	{
 	public :
 		void initDefault(void);
-		void PartieCopyData(const re_7_partie::Partie & p);
+		void PartieCopyData(const Partie & p);
 
 		Partie(unsigned int nbJoueurs = 2);
 
@@ -47,11 +50,25 @@ namespace re_7_partie
 		void derouler(void);
 		bool partieTerminee(void)
 		{
+			bool estTerminee = true;
 			for (unsigned int i = 0; i < _nbJoueurs; ++i)
 			{
-				if (!_Joueurs[i].estHorsJeux() && _Joueurs[i].getCumulDesLances() < 7 && _Joueurs[i].getNbLances() < 7) { return false; }
+				if (_Joueurs[i].getCumulDesLances() == 7)
+				{
+					estTerminee = true;
+					break; // return true;
+				}
+				else {
+					if (!_Joueurs[i].estHorsJeux()
+						&& _Joueurs[i].getCumulDesLances() < 7
+						&& _Joueurs[i].getNbLances() < 7
+						)
+					{
+						estTerminee = false;
+					}
+				}
 			}
-			return true;
+			return estTerminee;
 		}
 	private :
 		unsigned int _nbJoueurs;
