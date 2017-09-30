@@ -100,6 +100,7 @@ namespace re_7_joueur
 		: _pseudo("")
 		, _estHorsJeux(false)
 		, _nbLances(0)
+		, _cumulDesLances(0)
 	{
 		for (int i = 0; i < 7; ++i)
 		{

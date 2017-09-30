@@ -16,14 +16,17 @@ namespace re_7_joueur
 		Joueur(const Joueur& j) = default;
 		Joueur& operator = (const Joueur& j) = default;
 		
-		void setPseudo(std::string pseudo);
 		void affiche(void);
+		bool estHorsJeux(void) { return _estHorsJeux; }
+		unsigned int getCumulDesLances(void) { return _cumulDesLances; }
+		unsigned int getNbLances(void) { return _nbLances; }
+		void setPseudo(std::string pseudo);
 	private :
 		std::string _pseudo;
 		bool _estHorsJeux;
 		int _suiteDeLances[7];
 		unsigned int _nbLances;  // ... de lancés du dé
-		unsigned int _cumulDesLances; // .. ici .. : ajouter au constructeur
+		unsigned int _cumulDesLances; 
 	};
 }
 
