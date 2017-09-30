@@ -83,7 +83,7 @@ namespace re_7_partie
 
 	void Partie::derouler(void) 
 	{
-		while (_terminee == true)
+		while (_terminee == false)
 		{
 			for (unsigned int i = 0; i < _nbJoueurs; ++i)
 			{
