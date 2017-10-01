@@ -15,7 +15,7 @@ namespace re_7
 		
 		// .ici. todo : partie.classement();
 
-		partie.affiche();
+		partie.derouler();
 	}
 }
 
