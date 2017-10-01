@@ -1,5 +1,7 @@
 // Partie.c
 
+# include <iostream>
+# include <string>
 # include "Partie.h"
 
 namespace re_7_partie
@@ -79,17 +81,49 @@ namespace re_7_partie
 			_Joueurs[i].affiche();
 		}
 		std::cout << "Partie " << (_terminee == true ? "terminEe" : "en cours ...") << std::endl;
+		std::cout << std::endl;
 	}
 
 	void Partie::derouler(void) 
 	{
 		while (_terminee == false)
 		{
-			for (unsigned int i = 0; ! partieTerminee() && i < _nbJoueurs; ++i)
+			for (unsigned int i = 0; ! _terminee && ! partieTerminee() && i < _nbJoueurs; ++i)
 			{
-
+				if (_Joueurs[i].getCumulDesLances() < 7) 
+				{
+					std::string reponse;
+					std::cout << "P : passe son tour" << std::endl;
+					std::cout << "L : lance le dé" << std::endl;
+					std::cout << "A/Q : Abandonne/Quitte la partie" << std::endl;
+					std::cout << "La main est à " << _Joueurs[i].getPseudo().c_str() << " Re7 > " ;
+					getline(std::cin, reponse);
+					if (reponse == "P" || reponse == "p")
+					{
+						std::cout << _Joueurs[i].getPseudo().c_str() << " passe son tour" << std::endl;
+						_Joueurs[i].passeUnTour();
+					}
+					else
+					{
+						if(reponse == "A" || reponse == "a" || reponse == "Q" || reponse == "q") 
+						{
+							std::cout << "Abandon de la partie en cours ..." << std::endl;
+							_terminee = true;
+							break;
+						}
+						else
+						{
+							if (reponse == "L" || reponse == "l")
+							{
+								_Joueurs[i].plusUnLance(static_cast <unsigned int> (_leDe.Lancer())); 
+							}
+						}
+					}
+				}
+				//affiche();
 			}
-			// ....ici.... : todo
+			
+			affiche();
 		}
 	}
 }
@@ -116,5 +150,8 @@ namespace re_7_joueur
 	void re_7_joueur::Joueur::affiche(void)
 	{
 		std::cout << "Pseudo : " << _pseudo.c_str() << std::endl;
+		std::cout << "LancEs : " << _nbLances << std::endl;
+		std::cout << "Points :" << _cumulDesLances << std::endl;
+		//std::cout << std::endl;
 	}
 }

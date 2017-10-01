@@ -18,9 +18,13 @@ namespace re_7_joueur
 		
 		void affiche(void);
 		bool estHorsJeux(void) { return _estHorsJeux; }
-		unsigned int getCumulDesLances(void) { return _cumulDesLances; }
-		unsigned int getNbLances(void) { return _nbLances; }
+		unsigned int getCumulDesLances(void) const { return _cumulDesLances; }
+		unsigned int getNbLances(void) const { return _nbLances; }
+		std::string getPseudo(void) const { return _pseudo; }
 		void setPseudo(std::string pseudo);
+		//unsigned int cumulerDesPoints(unsigned int points) { return (_cumulDesLances += points); }
+		void plusUnLance(unsigned int points) { _suiteDeLances[_nbLances] = points; _cumulDesLances += points; ++_nbLances; }
+		void passeUnTour(void){_suiteDeLances[_nbLances] = 0; ++_nbLances;}
 	private :
 		std::string _pseudo;
 		bool _estHorsJeux;
