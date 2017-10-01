@@ -23,8 +23,8 @@ namespace re_7_joueur
 		std::string getPseudo(void) const { return _pseudo; }
 		void setPseudo(std::string pseudo);
 		//unsigned int cumulerDesPoints(unsigned int points) { return (_cumulDesLances += points); }
-		void plusUnLance(unsigned int points) { _suiteDeLances[_nbLances] = points; _cumulDesLances += points; ++_nbLances; }
-		void passeUnTour(void){_suiteDeLances[_nbLances] = 0; ++_nbLances;}
+		void plusUnLance(unsigned int points) { _suiteDeLances[_nbLances] = points; _cumulDesLances += points; ++_nbLances; if (_nbLances >= 7) { _estHorsJeux = true; } }
+		void passeUnTour(void){_suiteDeLances[_nbLances] = 0; ++_nbLances; if (_nbLances >= 7) { _estHorsJeux = true; }}
 	private :
 		std::string _pseudo;
 		bool _estHorsJeux;
@@ -72,6 +72,12 @@ namespace re_7_partie
 					}
 				}
 			}
+
+			if (estTerminee)
+			{
+				estTerminee = estTerminee;
+			}
+
 			return estTerminee;
 		}
 	private :
