@@ -94,9 +94,9 @@ namespace re_7_partie
 				{
 					std::string reponse;
 					std::cout << "P : passe son tour" << std::endl;
-					std::cout << "L : lance le dé" << std::endl;
+					std::cout << "L : lance le dE" << std::endl;
 					std::cout << "A/Q : Abandonne/Quitte la partie" << std::endl;
-					std::cout << "La main est à " << _Joueurs[i].getPseudo().c_str() << " Re7 > " ;
+					std::cout << "La main est A " << _Joueurs[i].getPseudo().c_str() << " Re7 > " ;
 					getline(std::cin, reponse);
 					if (reponse == "P" || reponse == "p")
 					{
@@ -126,6 +126,31 @@ namespace re_7_partie
 			affiche();
 		}
 	}
+
+	bool Partie::partieTerminee(void)
+	{
+		bool estTerminee = true;
+		for (unsigned int i = 0; _terminee == false && i < _nbJoueurs; ++i)
+		{
+			if (_Joueurs[i].getCumulDesLances() == 7)
+			{
+				_terminee = true;
+				break; // return true;
+			}
+			else {
+				if (!_Joueurs[i].estHorsJeux()
+					&& _Joueurs[i].getCumulDesLances() < 7
+					&& _Joueurs[i].getNbLances() < 7
+					)
+				{
+					continue ;
+				}
+			}
+		}
+
+
+		return _terminee;
+	}
 }
 
 namespace re_7_joueur
@@ -145,6 +170,29 @@ namespace re_7_joueur
 	inline void Joueur::setPseudo(std::string pseudo) 
 	{ 
 		_pseudo = pseudo; 
+	}
+
+	//unsigned int cumulerDesPoints(unsigned int points) { return (_cumulDesLances += points); }
+
+	void Joueur::plusUnLance(unsigned int points)
+	{ 
+		_suiteDeLances[_nbLances] = points; 
+		_cumulDesLances += points; 
+		++_nbLances; 
+		if (_nbLances >= 7 || _cumulDesLances > 7) 
+		{ 
+			_estHorsJeux = true; 
+		} 
+	}
+
+	void Joueur::passeUnTour(void) 
+	{ 
+		_suiteDeLances[_nbLances] = 0;
+		++_nbLances; 
+		if (_nbLances >= 7) 
+		{ 
+			_estHorsJeux = true; 
+		} 
 	}
 
 	void re_7_joueur::Joueur::affiche(void)
