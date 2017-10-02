@@ -19,6 +19,7 @@ namespace re_7_joueur
 		void affiche(void);
 		bool estHorsJeux(void) { return _estHorsJeux; }
 		unsigned int getCumulDesLances(void) const { return _cumulDesLances; }
+		int getDernierLance(void);
 		unsigned int getNbLances(void) const { return _nbLances; }
 		std::string getPseudo(void) const { return _pseudo; }
 		void setPseudo(std::string pseudo);
@@ -52,8 +53,10 @@ namespace re_7_partie
 		void classement(void) { std::cout << " ... Todo : re_7_partie::Partie.classement () ..." << std::endl; }
 		void derouler(void);
 		bool partieTerminee(void);
+		unsigned int calculeHorsJeu(void);
 	private :
 		unsigned int _nbJoueurs;
+		unsigned int _nbJoueursHorsJeu;
 		re_7_joueur::Joueur* _Joueurs;
 		re_7_le_de::LeDe _leDe;
 

@@ -9,6 +9,7 @@ namespace re_7_partie
 	inline void Partie::initDefault(void)
 	{
 		_nbJoueurs = 2;
+		_nbJoueursHorsJeu = 0;
 		_Joueurs = new re_7_joueur::Joueur[_nbJoueurs];
 		_Joueurs[0].setPseudo("Joueur 1");
 		_Joueurs[1].setPseudo("Joueur 2");
@@ -16,6 +17,7 @@ namespace re_7_partie
 
 	Partie::Partie(unsigned int nbJoueurs) 
 		: _nbJoueurs(nbJoueurs)
+		, _nbJoueursHorsJeu(0)
 		, _terminee(false)
 	{
 		initDefault();
@@ -23,6 +25,7 @@ namespace re_7_partie
 
 	Partie::Partie(unsigned int nbJoueurs, std::string * listePseudos) 
 		: _nbJoueurs(nbJoueurs)
+		, _nbJoueursHorsJeu(0)
 		, _terminee(false)
 	{
 		switch (_nbJoueurs)
@@ -63,6 +66,8 @@ namespace re_7_partie
 		{
 			delete[] _Joueurs;
 			_nbJoueurs = p._nbJoueurs;
+			_nbJoueursHorsJeu = p._nbJoueursHorsJeu;
+			_leDe = p._leDe;
 
 			_Joueurs = new re_7_joueur::Joueur[_nbJoueurs];
 			for (unsigned int i = 0; i < _nbJoueurs; ++i)
@@ -88,14 +93,16 @@ namespace re_7_partie
 	{
 		while (_terminee == false)
 		{
+			std::cout << "=======================" << std::endl;
+			std::cout << "P : passe son tour" << std::endl;
+			std::cout << "L : lance le dE" << std::endl;
+			std::cout << "A/Q : Abandonne/Quitte la partie" << std::endl;
+			std::cout << std::endl;
 			for (unsigned int i = 0; ! _terminee && ! partieTerminee() && i < _nbJoueurs; ++i)
 			{
 				if (_Joueurs[i].getCumulDesLances() < 7) 
 				{
 					std::string reponse;
-					std::cout << "P : passe son tour" << std::endl;
-					std::cout << "L : lance le dE" << std::endl;
-					std::cout << "A/Q : Abandonne/Quitte la partie" << std::endl;
 					std::cout << "La main est A " << _Joueurs[i].getPseudo().c_str() << " Re7 > " ;
 					getline(std::cin, reponse);
 					if (reponse == "P" || reponse == "p")
@@ -116,28 +123,45 @@ namespace re_7_partie
 							if (reponse == "L" || reponse == "l")
 							{
 								_Joueurs[i].plusUnLance(static_cast <unsigned int> (_leDe.Lancer())); 
+								/* 
+								Ne pas afficher le tirage avant que tout le monde ait lancé son dé.
+								std::cout << "[" << _Joueurs [i].getDernierLance() << "]" << std::endl;
+								*/
+								/*
+								NON : un seul joueur hors jeux ne termine pas la partie
+								---
+								if (_Joueurs[i].estHorsJeux())
+								{
+									_terminee = true;
+								}
+								*/
 							}
 						}
 					}
 				}
 				//affiche();
 			}
-			
+
+			std::cout << "  --Redultats--" << std::endl;
 			affiche();
 		}
 	}
 
 	bool Partie::partieTerminee(void)
 	{
-		bool estTerminee = true;
 		for (unsigned int i = 0; _terminee == false && i < _nbJoueurs; ++i)
 		{
 			if (_Joueurs[i].getCumulDesLances() == 7)
 			{
 				_terminee = true;
-				break; // return true;
+				break;
 			}
 			else {
+				// Tous les joueurs (ou tous sauf un seul) sont hors jeu
+				if(calculeHorsJeu() >= -1 + _nbJoueurs)
+				{ 
+					_terminee = true;
+				}
 				if (!_Joueurs[i].estHorsJeux()
 					&& _Joueurs[i].getCumulDesLances() < 7
 					&& _Joueurs[i].getNbLances() < 7
@@ -150,6 +174,21 @@ namespace re_7_partie
 
 
 		return _terminee;
+	}
+
+	unsigned int Partie::calculeHorsJeu(void)
+	{
+		unsigned int dummy = 0;
+		for (unsigned int i = 0; i < _nbJoueurs; ++i)
+		{
+			if (_Joueurs[i].estHorsJeux())
+			{
+				++dummy;
+			}
+		}
+		_nbJoueursHorsJeu = dummy;
+
+		return _nbJoueursHorsJeu;
 	}
 }
 
@@ -171,8 +210,6 @@ namespace re_7_joueur
 	{ 
 		_pseudo = pseudo; 
 	}
-
-	//unsigned int cumulerDesPoints(unsigned int points) { return (_cumulDesLances += points); }
 
 	void Joueur::plusUnLance(unsigned int points)
 	{ 
@@ -197,9 +234,21 @@ namespace re_7_joueur
 
 	void re_7_joueur::Joueur::affiche(void)
 	{
-		std::cout << "Pseudo : " << _pseudo.c_str() << std::endl;
-		std::cout << "LancEs : " << _nbLances << std::endl;
-		std::cout << "Points :" << _cumulDesLances << std::endl;
-		//std::cout << std::endl;
+		std::cout << "  Classement : " << (_estHorsJeux ? "Hors jeu" : "" ) << std::endl;
+		std::cout << "      Pseudo : " << _pseudo.c_str() << std::endl;
+		std::cout << "      LancEs : " << _nbLances << std::endl;
+		std::cout << "      Points : " << _cumulDesLances << std::endl;
+		std::cout << "  < " ;
+		for (unsigned int i = 0 ; i < _nbLances ; ++i)
+		{
+			std::cout << "[" << _suiteDeLances[i] << "] ";
+		}
+		std::cout << ">" << std::endl;
+		std::cout << std::endl;
+	}
+
+	int Joueur::getDernierLance(void) 
+	{ 
+		return (_nbLances > 0 ? _suiteDeLances[-1 + _nbLances ] : -1); 
 	}
 }
