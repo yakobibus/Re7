@@ -126,6 +126,31 @@ namespace re_7_partie
 			affiche();
 		}
 	}
+
+	bool Partie::partieTerminee(void)
+	{
+		bool estTerminee = true;
+		for (unsigned int i = 0; _terminee == false && i < _nbJoueurs; ++i)
+		{
+			if (_Joueurs[i].getCumulDesLances() == 7)
+			{
+				_terminee = true;
+				break; // return true;
+			}
+			else {
+				if (!_Joueurs[i].estHorsJeux()
+					&& _Joueurs[i].getCumulDesLances() < 7
+					&& _Joueurs[i].getNbLances() < 7
+					)
+				{
+					continue ;
+				}
+			}
+		}
+
+
+		return _terminee;
+	}
 }
 
 namespace re_7_joueur

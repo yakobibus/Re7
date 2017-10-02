@@ -52,34 +52,7 @@ namespace re_7_partie
 		void affiche(void);
 		void classement(void) { std::cout << " ... Todo : re_7_partie::Partie.classement () ..." << std::endl; }
 		void derouler(void);
-		bool partieTerminee(void)
-		{
-			bool estTerminee = true;
-			for (unsigned int i = 0; i < _nbJoueurs; ++i)
-			{
-				if (_Joueurs[i].getCumulDesLances() == 7)
-				{
-					estTerminee = true;
-					break; // return true;
-				}
-				else {
-					if (!_Joueurs[i].estHorsJeux()
-						&& _Joueurs[i].getCumulDesLances() < 7
-						&& _Joueurs[i].getNbLances() < 7
-						)
-					{
-						estTerminee = false;
-					}
-				}
-			}
-
-			if (estTerminee)
-			{
-				estTerminee = estTerminee;
-			}
-
-			return estTerminee;
-		}
+		bool partieTerminee(void);
 	private :
 		unsigned int _nbJoueurs;
 		re_7_joueur::Joueur* _Joueurs;
