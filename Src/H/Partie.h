@@ -4,6 +4,8 @@
 # define PARTIE_H  (1)
 
 # include <iostream>
+# include <vector>
+
 # include "LeDe.h"
 
 namespace re_7_joueur
@@ -15,6 +17,9 @@ namespace re_7_joueur
 		~Joueur() = default;
 		Joueur(const Joueur& j) = default;
 		Joueur& operator = (const Joueur& j) = default;
+		bool operator < (const Joueur& j) { return _cumulDesLances < j._cumulDesLances; }
+		bool operator > (const Joueur& j) { return _cumulDesLances > j._cumulDesLances; }
+		bool operator == (const Joueur& j) { return _cumulDesLances == j._cumulDesLances; }
 		
 		void affiche(void);
 		bool estHorsJeux(void) { return _estHorsJeux; }
@@ -22,6 +27,7 @@ namespace re_7_joueur
 		int getDernierLance(void);
 		unsigned int getNbLances(void) const { return _nbLances; }
 		std::string getPseudo(void) const { return _pseudo; }
+		void setClassement(const unsigned int& classement) { _classement = classement; }
 		void setPseudo(std::string pseudo);
 		void plusUnLance(unsigned int points);
 		void passeUnTour(void);
@@ -30,7 +36,8 @@ namespace re_7_joueur
 		bool _estHorsJeux;
 		int _suiteDeLances[7];
 		unsigned int _nbLances;  // ... de lancés du dé
-		unsigned int _cumulDesLances; 
+		unsigned int _cumulDesLances;
+		unsigned int _classement;
 	};
 }
 
@@ -50,15 +57,16 @@ namespace re_7_partie
 		Partie& operator = (const Partie& p);
 
 		void affiche(void);
-		void classement(void) { std::cout << " ... Todo : re_7_partie::Partie.classement () ..." << std::endl; }
+		unsigned int calculeHorsJeu(void);
+		void classement(void);
 		void derouler(void);
 		bool partieTerminee(void);
-		unsigned int calculeHorsJeu(void);
 	private :
 		unsigned int _nbJoueurs;
 		unsigned int _nbJoueursHorsJeu;
 		re_7_joueur::Joueur* _Joueurs;
 		re_7_le_de::LeDe _leDe;
+		//std::vector <re_7_joueur::Joueur> _vJoueurs;
 
 		bool _terminee;
 	};

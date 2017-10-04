@@ -2,6 +2,9 @@
 
 # include <iostream>
 # include <string>
+# include <algorithm>
+# include <vector>
+
 # include "Partie.h"
 
 namespace re_7_partie
@@ -12,7 +15,9 @@ namespace re_7_partie
 		_nbJoueursHorsJeu = 0;
 		_Joueurs = new re_7_joueur::Joueur[_nbJoueurs];
 		_Joueurs[0].setPseudo("Joueur 1");
+		//_vJoueurs.push_back(_Joueurs[0]);
 		_Joueurs[1].setPseudo("Joueur 2");
+		//_vJoueurs.push_back(_Joueurs[1]);
 	}
 
 	Partie::Partie(unsigned int nbJoueurs) 
@@ -36,12 +41,14 @@ namespace re_7_partie
 		case 1:
 			initDefault();
 			_Joueurs[0].setPseudo(listePseudos[0]);
+			//_vJoueurs.push_back(_Joueurs[0]);
 			break;
 		default:
 			_Joueurs = new re_7_joueur::Joueur[_nbJoueurs];
 			for (unsigned int i = 0; i < _nbJoueurs; ++i)
 			{
 				_Joueurs[i].setPseudo(listePseudos[i]);
+				//_vJoueurs.push_back(_Joueurs[i]);
 			}
 			break;
 		}
@@ -81,12 +88,38 @@ namespace re_7_partie
 
 	void Partie::affiche(void)
 	{
+		classement();
+
 		for (unsigned int i = 0; i < _nbJoueurs; ++i)
 		{
 			_Joueurs[i].affiche();
 		}
 		std::cout << "Partie " << (_terminee == true ? "terminEe" : "en cours ...") << std::endl;
 		std::cout << std::endl;
+	}
+
+	void Partie::classement(void) 
+	{
+		std::vector <re_7_joueur::Joueur*> dummyJoueurs;
+
+		for (unsigned int i = 0; i < _nbJoueurs; ++i)
+		{
+			dummyJoueurs.push_back(&_Joueurs[i]);
+		}
+
+		std::sort(dummyJoueurs.begin(), dummyJoueurs.end());
+
+		for (unsigned int i = 0; i < _nbJoueurs; ++i)
+		{
+			if ((*dummyJoueurs.at(i)).estHorsJeux())
+			{
+				(*dummyJoueurs.at(i)).setClassement(_nbJoueurs);
+			}
+			else
+			{
+				(*dummyJoueurs.at(i)).setClassement(1 + i);
+			}
+		}
 	}
 
 	void Partie::derouler(void) 
@@ -199,6 +232,7 @@ namespace re_7_joueur
 		, _estHorsJeux(false)
 		, _nbLances(0)
 		, _cumulDesLances(0)
+		, _classement (0)
 	{
 		for (int i = 0; i < 7; ++i)
 		{
@@ -234,8 +268,8 @@ namespace re_7_joueur
 
 	void re_7_joueur::Joueur::affiche(void)
 	{
-		std::cout << "  Classement : " << (_estHorsJeux ? "Hors jeu" : "" ) << std::endl;
-		std::cout << "      Pseudo : " << _pseudo.c_str() << std::endl;
+		std::cout << "  Classement : " << (_estHorsJeux ? "Hors jeu" : std::to_string(_classement) ) << (_classement == 1 ? "er" : (_classement == 0 ? "" : "e")) << std::endl;
+		std::cout << "      Pseudo : " << _pseudo.c_str() << (_classement == 1 ? "*" : "") << std::endl;
 		std::cout << "      LancEs : " << _nbLances << std::endl;
 		std::cout << "      Points : " << _cumulDesLances << std::endl;
 		std::cout << "  < " ;
