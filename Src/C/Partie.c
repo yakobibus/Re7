@@ -100,6 +100,45 @@ namespace re_7_partie
 
 	void Partie::classement(void) 
 	{
+		for (unsigned int i = 0; i < _nbJoueurs; ++i)
+		{
+			if (_Joueurs[i].estHorsJeux())
+			{
+				_Joueurs[i].setClassement(_nbJoueurs);
+			}
+			else
+			{
+				if (i == 0)
+				{
+					_Joueurs[i].setClassement(1 + i);
+				}
+				else
+				{
+					if (_Joueurs[i] < _Joueurs[-1 + i])
+					{
+						_Joueurs[i].setClassement(1 + i);
+					}
+					else
+					{
+						if (_Joueurs[i] == _Joueurs[-1 + i])
+						{
+							_Joueurs[i].setClassement(_Joueurs[-1 + i].getClassement());
+						}
+						else
+						{
+							for (unsigned int ii = i; ii > 0 && _Joueurs[i] > _Joueurs[-1 + ii]; --ii)
+							{
+								unsigned int classementInferieur = (i == ii ? 1 + ii : _Joueurs[-1 + ii].getClassement());
+
+								_Joueurs[i].setClassement(_Joueurs[-1 + ii].getClassement());
+								_Joueurs[-1 + ii].setClassement(classementInferieur);
+							}
+						}
+					}
+				}
+			}
+		}
+		/*
 		std::vector <re_7_joueur::Joueur*> dummyJoueurs;
 
 		for (unsigned int i = 0; i < _nbJoueurs; ++i)
@@ -120,6 +159,7 @@ namespace re_7_partie
 				(*dummyJoueurs.at(i)).setClassement(1 + i);
 			}
 		}
+		*/
 	}
 
 	void Partie::derouler(void) 

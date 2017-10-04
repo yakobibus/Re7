@@ -23,6 +23,7 @@ namespace re_7_joueur
 		
 		void affiche(void);
 		bool estHorsJeux(void) { return _estHorsJeux; }
+		unsigned int getClassement(void) const { return _classement; }
 		unsigned int getCumulDesLances(void) const { return _cumulDesLances; }
 		int getDernierLance(void);
 		unsigned int getNbLances(void) const { return _nbLances; }
