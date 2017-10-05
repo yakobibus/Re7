@@ -22,7 +22,9 @@ namespace re_7_joueur
 		bool operator == (const Joueur& j) { return _cumulDesLances == j._cumulDesLances; }
 		
 		void affiche(void);
+		int compare(const Joueur& j) const;
 		bool estHorsJeux(void) { return _estHorsJeux; }
+		unsigned int incrementeClassement(unsigned int borneMax) { return (borneMax > _classement ? ++_classement : _classement); }
 		unsigned int getClassement(void) const { return _classement; }
 		unsigned int getCumulDesLances(void) const { return _cumulDesLances; }
 		int getDernierLance(void);
