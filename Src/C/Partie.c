@@ -102,40 +102,44 @@ namespace re_7_partie
 	{
 		for (unsigned int i = 0; i < _nbJoueurs; ++i)
 		{
-			if (_Joueurs[i].estHorsJeux())
+			if (i > 0)
 			{
-				_Joueurs[i].setClassement(_nbJoueurs);
-			}
-			else
-			{
-				if (i == 0)
+				if (_Joueurs[i].estHorsJeux())
 				{
-					_Joueurs[i].setClassement(1 + i);
+					_Joueurs[i].setClassement(_nbJoueurs);
 				}
 				else
 				{
-					if (_Joueurs[i] < _Joueurs[-1 + i])
+					unsigned int dummyClassement = 1 + i;
+					for (unsigned int ii = 0 ; ii < i ; ++ii)
 					{
-						_Joueurs[i].setClassement(1 + i);
-					}
-					else
-					{
-						if (_Joueurs[i] == _Joueurs[-1 + i])
+						int comparaison = _Joueurs[i].compare(_Joueurs[ii]);
+						if (comparaison == 0)
 						{
-							_Joueurs[i].setClassement(_Joueurs[-1 + i].getClassement());
+							_Joueurs[i].setClassement(_Joueurs[ii].getClassement());
 						}
 						else
 						{
-							for (unsigned int ii = i; ii > 0 && _Joueurs[i] > _Joueurs[-1 + ii]; --ii)
+							if (comparaison > 0)
 							{
-								unsigned int classementInferieur = (i == ii ? 1 + ii : _Joueurs[-1 + ii].getClassement());
-
-								_Joueurs[i].setClassement(_Joueurs[-1 + ii].getClassement());
-								_Joueurs[-1 + ii].setClassement(classementInferieur);
+								_Joueurs[ii].incrementeClassement(_nbJoueurs);
+								--dummyClassement;
+							}
+							else
+							{
+								// Il est mieux classé, rien à faire
 							}
 						}
 					}
+					if (0 == _Joueurs[i].getClassement())
+					{
+						_Joueurs[i].setClassement(dummyClassement);
+					}
 				}
+			}
+			else
+			{
+				_Joueurs[i].setClassement(1 + i);
 			}
 		}
 		/*
@@ -245,7 +249,6 @@ namespace re_7_partie
 			}
 		}
 
-
 		return _terminee;
 	}
 
@@ -308,7 +311,7 @@ namespace re_7_joueur
 
 	void re_7_joueur::Joueur::affiche(void)
 	{
-		std::cout << "  Classement : " << (_estHorsJeux ? "Hors jeu" : std::to_string(_classement) ) << (_classement == 1 ? "er" : (_classement == 0 ? "" : "e")) << std::endl;
+		std::cout << "  Classement : " << (_estHorsJeux ? "Hors-jeu" : std::to_string(_classement) ) << (_estHorsJeux ? "" : (_classement == 1 ? "er" : (_classement == 0 ? "" : "e"))) << std::endl;
 		std::cout << "      Pseudo : " << _pseudo.c_str() << (_classement == 1 ? "*" : "") << std::endl;
 		std::cout << "      LancEs : " << _nbLances << std::endl;
 		std::cout << "      Points : " << _cumulDesLances << std::endl;
@@ -319,6 +322,11 @@ namespace re_7_joueur
 		}
 		std::cout << ">" << std::endl;
 		std::cout << std::endl;
+	}
+
+	int Joueur::compare(const Joueur & j) const 
+	{ 
+		return _cumulDesLances - j._cumulDesLances; 
 	}
 
 	int Joueur::getDernierLance(void) 
