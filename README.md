@@ -21,7 +21,7 @@ Jeu de dés
     Chaque joueur lance le dé à son tour, les points se cumulent après chaque lancé
 
 ## Principe :
-    Deux joueurs ou d'avantage s'affrontent dans un jeu de dés.  Le but est de totaliser 7 points avec le dé
+    Deux joueurs ou d'avantage s'affrontent dans un jeu de dé. Le but est de totaliser 7 points avec le dé
 
 ## Scorring :
     s1. Les joueurs lancent chacun leur tour le dé
@@ -30,9 +30,11 @@ Jeu de dés
         s31. il remporte la partie qui prend fin aussitôt
     s4. Sinon
         s41. Si un joueur totalise plus de 7 points
-             s411. il est aussitôt hors-jeu, son score est ramené à zéro, il ne marque pas de points et ne lancera plus le dé
+             s411. il est aussitôt hors-jeu, son score est ramené à zéro ;
+                   il ne marque pas de points et ne lancera plus le dé
         s42. Sinon
-             s421. Un nouveau tour de lancés est enclenché pour les joueurs encore en course. Ils ont le choix de relancer le dé ou non
+             s421. Un nouveau tour de lancés est enclenché pour les joueurs encore en course.
+                   Ils ont le choix de relancer le dé ou non
                  s4211. Si un joueur renonce à relancer le dé, 
                         s42111. il cumule un lancé à zéro points, il garde donc son total inchangé pour ce tour
                  s4212. Sinon
@@ -50,4 +52,7 @@ Jeu de dés
     r6. Les joueurs n'ayant pas remporté la partie ne marquent pas de points
     r7. Le joueur peut passer son tour, il ne marque pas de points et son cumul reste inchangé
     r8. La partie ne compte que 7 tours de lancés tout au plus
+    r9. La valeur de chaque lancé est tenue cachée au cours d'un tour, 
+        jusqu'à ce que tous les joueurs aient fait leur lancé pour ce tour.
+        A l'issue d'un tour l'affichage récapitule la liste des scores de dé par joueur
 
