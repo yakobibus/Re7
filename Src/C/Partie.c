@@ -100,9 +100,14 @@ namespace re_7_partie
 
 	void Partie::classement(void) 
 	{
+		for (unsigned int i = 0; i < _nbJoueurs; ++i) // RAZ du classement existant
+		{
+			_Joueurs[i].setClassement(0);
+		}
+
 		for (unsigned int i = 0; i < _nbJoueurs; ++i)
 		{
-			if (i > 0)
+			//if (i > 0)
 			{
 				if (_Joueurs[i].estHorsJeux())
 				{
@@ -137,10 +142,12 @@ namespace re_7_partie
 					}
 				}
 			}
+			/*
 			else
 			{
 				_Joueurs[i].setClassement(1 + i);
 			}
+			*/
 		}
 		/*
 		std::vector <re_7_joueur::Joueur*> dummyJoueurs;
@@ -326,7 +333,7 @@ namespace re_7_joueur
 
 	int Joueur::compare(const Joueur & j) const 
 	{ 
-		return _cumulDesLances - j._cumulDesLances; 
+		return (_estHorsJeux ? 0 : _cumulDesLances) - (j._estHorsJeux ? 0 : j._cumulDesLances); 
 	}
 
 	int Joueur::getDernierLance(void) 
