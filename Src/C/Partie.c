@@ -13,9 +13,7 @@ namespace re_7_partie
 		_nbJoueursHorsJeu = 0;
 		_Joueurs = new re_7_joueur::Joueur[_nbJoueurs];
 		_Joueurs[0].setPseudo("Joueur 1");
-		//_vJoueurs.push_back(_Joueurs[0]);
 		_Joueurs[1].setPseudo("Joueur 2");
-		//_vJoueurs.push_back(_Joueurs[1]);
 	}
 
 	Partie::Partie(unsigned int nbJoueurs) 
@@ -39,14 +37,12 @@ namespace re_7_partie
 		case 1:
 			initDefault();
 			_Joueurs[0].setPseudo(listePseudos[0]);
-			//_vJoueurs.push_back(_Joueurs[0]);
 			break;
 		default:
 			_Joueurs = new re_7_joueur::Joueur[_nbJoueurs];
 			for (unsigned int i = 0; i < _nbJoueurs; ++i)
 			{
 				_Joueurs[i].setPseudo(listePseudos[i]);
-				//_vJoueurs.push_back(_Joueurs[i]);
 			}
 			break;
 		}
@@ -279,9 +275,10 @@ namespace re_7_joueur
 		std::cout << "      LancEs : " << _nbLances << std::endl;
 		std::cout << "      Points : " << _cumulDesLances << std::endl;
 		std::cout << "  < " ;
+
 		for (unsigned int i = 0 ; i < _nbLances ; ++i)
 		{
-			std::cout << "[" << _suiteDeLances[i] << "] ";
+			std::cout << "[" << (_suiteDeLances[i] < 0 ? "-" : (_suiteDeLances[i] == 0 ? "P" : std::to_string( _suiteDeLances[i] ) ) ) << "] ";
 		}
 		std::cout << ">" << std::endl;
 		std::cout << std::endl;
