@@ -4,7 +4,6 @@
 # define PARTIE_H  (1)
 
 # include <iostream>
-# include <vector>
 
 # include "LeDe.h"
 
@@ -69,7 +68,6 @@ namespace re_7_partie
 		unsigned int _nbJoueursHorsJeu;
 		re_7_joueur::Joueur* _Joueurs;
 		re_7_le_de::LeDe _leDe;
-		//std::vector <re_7_joueur::Joueur> _vJoueurs;
 
 		bool _terminee;
 	};

@@ -2,8 +2,6 @@
 
 # include <iostream>
 # include <string>
-# include <algorithm>
-# include <vector>
 
 # include "Partie.h"
 
@@ -100,9 +98,13 @@ namespace re_7_partie
 
 	void Partie::classement(void) 
 	{
+		for (unsigned int i = 0; i < _nbJoueurs; ++i) // RAZ du classement existant
+		{
+			_Joueurs[i].setClassement(0);
+		}
+
 		for (unsigned int i = 0; i < _nbJoueurs; ++i)
 		{
-			if (i > 0)
 			{
 				if (_Joueurs[i].estHorsJeux())
 				{
@@ -137,33 +139,7 @@ namespace re_7_partie
 					}
 				}
 			}
-			else
-			{
-				_Joueurs[i].setClassement(1 + i);
-			}
 		}
-		/*
-		std::vector <re_7_joueur::Joueur*> dummyJoueurs;
-
-		for (unsigned int i = 0; i < _nbJoueurs; ++i)
-		{
-			dummyJoueurs.push_back(&_Joueurs[i]);
-		}
-
-		std::sort(dummyJoueurs.begin(), dummyJoueurs.end());
-
-		for (unsigned int i = 0; i < _nbJoueurs; ++i)
-		{
-			if ((*dummyJoueurs.at(i)).estHorsJeux())
-			{
-				(*dummyJoueurs.at(i)).setClassement(_nbJoueurs);
-			}
-			else
-			{
-				(*dummyJoueurs.at(i)).setClassement(1 + i);
-			}
-		}
-		*/
 	}
 
 	void Partie::derouler(void) 
@@ -200,18 +176,6 @@ namespace re_7_partie
 							if (reponse == "L" || reponse == "l")
 							{
 								_Joueurs[i].plusUnLance(static_cast <unsigned int> (_leDe.Lancer())); 
-								/* 
-								Ne pas afficher le tirage avant que tout le monde ait lancé son dé.
-								std::cout << "[" << _Joueurs [i].getDernierLance() << "]" << std::endl;
-								*/
-								/*
-								NON : un seul joueur hors jeux ne termine pas la partie
-								---
-								if (_Joueurs[i].estHorsJeux())
-								{
-									_terminee = true;
-								}
-								*/
 							}
 						}
 					}
@@ -326,7 +290,7 @@ namespace re_7_joueur
 
 	int Joueur::compare(const Joueur & j) const 
 	{ 
-		return _cumulDesLances - j._cumulDesLances; 
+		return (_estHorsJeux ? 0 : _cumulDesLances) - (j._estHorsJeux ? 0 : j._cumulDesLances); 
 	}
 
 	int Joueur::getDernierLance(void) 
