@@ -106,7 +106,7 @@ namespace re_7_partie
 		for (unsigned int i = 0; i < _nbJoueurs; ++i)
 		{
 			{
-				if (_Joueurs[i].estHorsJeux())
+				if (_Joueurs[i].estHorsJeu())
 				{
 					_Joueurs[i].setClassement(_nbJoueurs);
 				}
@@ -180,7 +180,6 @@ namespace re_7_partie
 						}
 					}
 				}
-				//affiche();
 			}
 
 			std::cout << "  --Redultats--" << std::endl;
@@ -203,7 +202,7 @@ namespace re_7_partie
 				{ 
 					_terminee = true;
 				}
-				if (!_Joueurs[i].estHorsJeux()
+				if (!_Joueurs[i].estHorsJeu()
 					&& _Joueurs[i].getCumulDesLances() < 7
 					&& _Joueurs[i].getNbLances() < 7
 					)
@@ -221,7 +220,7 @@ namespace re_7_partie
 		unsigned int dummy = 0;
 		for (unsigned int i = 0; i < _nbJoueurs; ++i)
 		{
-			if (_Joueurs[i].estHorsJeux())
+			if (_Joueurs[i].estHorsJeu())
 			{
 				++dummy;
 			}
@@ -236,7 +235,7 @@ namespace re_7_joueur
 {
 	Joueur::Joueur() 
 		: _pseudo("")
-		, _estHorsJeux(false)
+		, _estHorsJeu(false)
 		, _nbLances(0)
 		, _cumulDesLances(0)
 		, _classement (0)
@@ -259,7 +258,7 @@ namespace re_7_joueur
 		++_nbLances; 
 		if (_nbLances >= 7 || _cumulDesLances > 7) 
 		{ 
-			_estHorsJeux = true; 
+			_estHorsJeu = true; 
 		} 
 	}
 
@@ -269,14 +268,14 @@ namespace re_7_joueur
 		++_nbLances; 
 		if (_nbLances >= 7) 
 		{ 
-			_estHorsJeux = true; 
+			_estHorsJeu = true; 
 		} 
 	}
 
 	void re_7_joueur::Joueur::affiche(void)
 	{
-		std::cout << "  Classement : " << (_estHorsJeux ? "Hors-jeu" : std::to_string(_classement) ) << (_estHorsJeux ? "" : (_classement == 1 ? "er" : (_classement == 0 ? "" : "e"))) << std::endl;
-		std::cout << "      Pseudo : " << _pseudo.c_str() << (_classement == 1 ? "*" : "") << std::endl;
+		std::cout << "  Classement : " << (_estHorsJeu ? "Hors-jeu" : std::to_string(_classement) ) << (_estHorsJeu ? "" : (_classement == 1 ? "er" : (_classement == 0 ? "" : "e"))) << std::endl;
+		std::cout << "      Pseudo : " << _pseudo.c_str() << (_classement == 1 ? " (*)" : "") << std::endl;
 		std::cout << "      LancEs : " << _nbLances << std::endl;
 		std::cout << "      Points : " << _cumulDesLances << std::endl;
 		std::cout << "  < " ;
@@ -290,7 +289,7 @@ namespace re_7_joueur
 
 	int Joueur::compare(const Joueur & j) const 
 	{ 
-		return (_estHorsJeux ? 0 : _cumulDesLances) - (j._estHorsJeux ? 0 : j._cumulDesLances); 
+		return (_estHorsJeu ? 0 : _cumulDesLances) - (j._estHorsJeu ? 0 : j._cumulDesLances); 
 	}
 
 	int Joueur::getDernierLance(void) 

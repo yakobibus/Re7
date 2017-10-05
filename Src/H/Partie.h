@@ -16,13 +16,13 @@ namespace re_7_joueur
 		~Joueur() = default;
 		Joueur(const Joueur& j) = default;
 		Joueur& operator = (const Joueur& j) = default;
-		bool operator < (const Joueur& j) { return _cumulDesLances < j._cumulDesLances; }
-		bool operator > (const Joueur& j) { return _cumulDesLances > j._cumulDesLances; }
-		bool operator == (const Joueur& j) { return _cumulDesLances == j._cumulDesLances; }
+		bool operator < (const Joueur& j) { return (_estHorsJeu ? 0 : _cumulDesLances) < (j._estHorsJeu ? 0 : j._cumulDesLances); }
+		bool operator > (const Joueur& j) { return (_estHorsJeu ? 0 : _cumulDesLances) > (j._estHorsJeu ? 0 : j._cumulDesLances); }
+		bool operator == (const Joueur& j) { return (_estHorsJeu ? 0 : _cumulDesLances) == (j._estHorsJeu ? 0 : j._cumulDesLances); }
 		
 		void affiche(void);
 		int compare(const Joueur& j) const;
-		bool estHorsJeux(void) { return _estHorsJeux; }
+		bool estHorsJeu(void) { return _estHorsJeu; }
 		unsigned int incrementeClassement(unsigned int borneMax) { return (borneMax > _classement ? ++_classement : _classement); }
 		unsigned int getClassement(void) const { return _classement; }
 		unsigned int getCumulDesLances(void) const { return _cumulDesLances; }
@@ -35,7 +35,7 @@ namespace re_7_joueur
 		void passeUnTour(void);
 	private :
 		std::string _pseudo;
-		bool _estHorsJeux;
+		bool _estHorsJeu;
 		int _suiteDeLances[7];
 		unsigned int _nbLances;  // ... de lancés du dé
 		unsigned int _cumulDesLances;

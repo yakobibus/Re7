@@ -10,11 +10,6 @@ namespace re_7
 		unsigned int tmpNbJoueurs = -1 + getArgc();
 		re_7_partie::Partie partie (tmpNbJoueurs, (tmpNbJoueurs == 0 ? nullptr : &getArgv()[1]));
 
-		// .ici. todo : partie._Joueurs[0].lanceDe();
-		// .ici. todo : partie._Joueurs[1].lanceDe();
-		
-		// .ici. todo : partie.classement();
-
 		partie.derouler();
 	}
 }
