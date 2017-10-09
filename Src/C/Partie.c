@@ -2,6 +2,7 @@
 
 # include <iostream>
 # include <string>
+# include <iomanip>  // pour std::setw 
 
 # include "Partie.h"
 
@@ -270,10 +271,10 @@ namespace re_7_joueur
 
 	void re_7_joueur::Joueur::affiche(void)
 	{
-		std::cout << "  Classement : " << (_estHorsJeu ? "Hors-jeu" : std::to_string(_classement) ) << (_estHorsJeu ? "" : (_classement == 1 ? "er" : (_classement == 0 ? "" : "e"))) << std::endl;
-		std::cout << "      Pseudo : " << _pseudo.c_str() << (_classement == 1 ? " (*)" : "") << std::endl;
-		std::cout << "      LancEs : " << _nbLances << std::endl;
-		std::cout << "      Points : " << _cumulDesLances << std::endl;
+		std::cout << std::setw (15) << "Classement : " << (_estHorsJeu ? "Hors-jeu" : std::to_string(_classement) ) << (_estHorsJeu ? "" : (_classement == 1 ? "er" : (_classement == 0 ? "" : "e"))) << std::endl;
+		std::cout << std::setw (15) << "Pseudo : " << _pseudo.c_str() << (_classement == 1 ? " (*)" : "") << std::endl;
+		std::cout << std::setw (15) << "LancEs : " << _nbLances << std::endl;
+		std::cout << std::setw (15) << "Points : " << _cumulDesLances << std::endl;
 		std::cout << "  < " ;
 
 		for (unsigned int i = 0 ; i < _nbLances ; ++i)
